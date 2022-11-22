@@ -9,42 +9,19 @@ containerImg.insertAdjacentHTML("beforeend", imgCreateInHtml);
 function createImgGallery(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
-      return `<div class="gallery__item">
- <a class="gallery__link" href="${original}">
-   <img
-     class="gallery__image"
-     src="${preview}"
-     data-source="${original}" 
-     alt="${description}"
-   />
- </a>
- </div>`;
+      return `<a class="gallery__item" href="${original}">
+      <img class="gallery__image" src="${preview}" alt="${description}" />
+    </a>`;
     })
     .join("");
 }
-
 containerImg.addEventListener('click', onContainerImgClick);
 
 function onContainerImgClick(event) {
-    if (!event.target.classList.contains("gallery__image")) {
-        return;
-    }
-    event.preventDefault();
+  event.preventDefault();
 
-    const instance = basicLightbox.create(`
-    <img src="${event.target.dataset.source}" width="800" height="600">
-`);
-
-    instance.show();
 
   
 
-    addEventListener('keydown', event => {
-        if (event.code === "Escape") {
-            instance.close()
-        }
-    })
 }
-
-
-console.log(galleryItems);
+var lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionsDelay: 250 })
